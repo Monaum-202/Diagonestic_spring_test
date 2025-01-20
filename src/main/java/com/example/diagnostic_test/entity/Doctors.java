@@ -1,7 +1,10 @@
 package com.example.diagnostic_test.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.ToString;
+
+import java.util.List;
 
 @Entity
 @ToString
@@ -16,18 +19,23 @@ public class Doctors {
     private String gender;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "department_id")
+    @JsonIgnore
     private Department department; // Reference to the department
-
 
     private String contactNumber; // Doctor's contact number
 
     private String email; // Doctor's email
 
-
     private String qualification; // Educational qualifications
 
     private String specialty;
+
+    private String scheduleTime;
+
+
+
+    @OneToMany(mappedBy = "doctors", cascade = CascadeType.ALL)
+    private List<DoctorAppointments> doctorAppointments;
 
 
 
@@ -97,5 +105,19 @@ public class Doctors {
         this.specialty = specialty;
     }
 
+    public String getScheduleTime() {
+        return scheduleTime;
+    }
 
+    public void setScheduleTime(String scheduleTime) {
+        this.scheduleTime = scheduleTime;
+    }
+
+    public List<DoctorAppointments> getDoctorAppointments() {
+        return doctorAppointments;
+    }
+
+    public void setDoctorAppointments(List<DoctorAppointments> doctorAppointments) {
+        this.doctorAppointments = doctorAppointments;
+    }
 }

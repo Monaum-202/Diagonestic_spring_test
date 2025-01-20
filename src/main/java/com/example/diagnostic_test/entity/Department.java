@@ -16,13 +16,20 @@ public class Department {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String name;
-
     private String description;
+
+
 
     @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Doctors> doctors;
+
+    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<DoctorAppointments> appointments;
+
+
+
+
 
 
     // Default constructor
@@ -57,7 +64,25 @@ public class Department {
     public void setDescription(String description) {
         this.description = description;
     }
-//
+
+    public List<Doctors> getDoctors() {
+        return doctors;
+    }
+
+
+    public void setDoctors(List<Doctors> doctors) {
+        this.doctors = doctors;
+    }
+
+    public List<DoctorAppointments> getAppointments() {
+        return appointments;
+    }
+
+    public void setAppointments(List<DoctorAppointments> appointments) {
+        this.appointments = appointments;
+    }
+
+    //
 //    @Override
 //    public String toString() {
 //        return "Department{" +

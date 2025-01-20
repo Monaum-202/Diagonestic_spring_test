@@ -29,7 +29,7 @@ public class DepartmentController {
         return user.orElse(null);  // Return the user if found, otherwise return null
     }
 
-    @PostMapping("/post")
+    @PostMapping
     public Department createUser(@RequestBody Department department) {
         return departmentRepository.save(department);  // Save the user to the database
     }
