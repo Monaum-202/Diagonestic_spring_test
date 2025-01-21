@@ -12,7 +12,7 @@ public class Doctors {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long doctorId; // Unique identifier for each doctor
+    private Long id; // Unique identifier for each doctor
 
     private String name; // Doctor's first name
 
@@ -41,13 +41,12 @@ public class Doctors {
 
 
 
-
-    public Long getDoctorId() {
-        return doctorId;
+    public Long getId() {
+        return id;
     }
 
-    public void setDoctorId(Long doctorId) {
-        this.doctorId = doctorId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
