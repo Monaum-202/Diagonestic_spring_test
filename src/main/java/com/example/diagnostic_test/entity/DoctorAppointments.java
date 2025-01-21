@@ -16,11 +16,12 @@ public class DoctorAppointments {
 
     private String patientName;  // Patient's name
 
-    private String phoneNumber;  // Patient's contact number
+    private String contactNumber;  // Patient's contact number
 
     private String email;  // Patient's email
 
 
+    private String address;
 
     private LocalDate appointmentDate;  // Appointment date
 
@@ -49,20 +50,28 @@ public class DoctorAppointments {
         this.id = id;
     }
 
-    public String getPatientName() {
+    public String getPetientName() {
         return patientName;
     }
 
-    public void setPatientName(String patientName) {
-        this.patientName = patientName;
+    public void setPetientName(String petientName) {
+        this.patientName = petientName;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getContactNumber() {
+        return contactNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setContactNumber(String contactNumber) {
+        this.contactNumber = contactNumber;
+    }
+
+    public LocalTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalTime createdAt) {
+        this.createdAt = createdAt;
     }
 
     public String getEmail() {
@@ -115,14 +124,22 @@ public class DoctorAppointments {
         this.department = department;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
     @Override
     public String toString() {
         return "DoctorAppointments{" +
                 "id=" + id +
-                ", patientName='" + patientName + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
+                ", petientName='" + patientName + '\'' +
+                ", contactNumber='" + contactNumber + '\'' +
                 ", email='" + email + '\'' +
+                ", address='" + address + '\'' +
                 ", appointmentDate=" + appointmentDate +
                 ", createdAt=" + createdAt +
                 ", message='" + message + '\'' +

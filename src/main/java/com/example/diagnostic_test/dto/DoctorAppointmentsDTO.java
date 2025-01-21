@@ -7,7 +7,6 @@ import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 public class DoctorAppointmentsDTO {
-
     @NotBlank
     private String name;
 
@@ -17,8 +16,7 @@ public class DoctorAppointmentsDTO {
     @Email
     private String email;
 
-
-
+    private String address;
     @NotNull
     private LocalDate date;
 
@@ -29,6 +27,9 @@ public class DoctorAppointmentsDTO {
 
     @NotNull
     private String department;
+
+
+
 
     public String getName() {
         return name;
@@ -84,5 +85,13 @@ public class DoctorAppointmentsDTO {
 
     public void setDepartment(String department) {
         this.department = department;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }
