@@ -33,22 +33,19 @@ public class DoctorAppointmentService {
     }
 
 
-    public DoctorAppointments createAppointment(DoctorAppointmentsDTO dto) {
-        Doctors doctors = doctorsRepository.findById(Long.parseLong(dto.getDoctor()))
-                .orElseThrow(() -> new IllegalArgumentException("Doctor not found"));
-
-        Department department = departmentRepository.findById(Long.parseLong(dto.getDepartment()))
-                .orElseThrow(() -> new IllegalArgumentException("Department not found"));
-
+    public DoctorAppointments createAppointment(DoctorAppointmentsDTO appointmentDTO) {
+        // Convert DTO to Entity (if necessary)
         DoctorAppointments appointment = new DoctorAppointments();
-        appointment.setPatientName(dto.getName());
-        appointment.setPhoneNumber(dto.getPhone());
-        appointment.setEmail(dto.getEmail());
-        appointment.setAppointmentDate(dto.getDate());
-        appointment.setMessage(dto.getMessage());
-        appointment.setDoctors(doctors);
-        appointment.setDepartment(department);
+        appointment.setPatientName(appointmentDTO.getName());
+        appointment.setPhoneNumber(appointmentDTO.getPhone());
+        appointment.setEmail(appointmentDTO.getEmail());
+        appointment.setAddress(appointmentDTO.getAddress());
+        appointment.getAppointmentDate(appointmentDTO.getDate());
+        appointment.setMessage(appointmentDTO.getMessage());
+        appointment.setDoctors(appointmentDTO.getDoctor());
+        appointment.setDepartment(appointmentDTO.getDepartment());
 
+        // Save appointment to the database
         return doctorAppointmentsRepository.save(appointment);
     }
 }

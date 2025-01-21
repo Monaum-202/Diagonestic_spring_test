@@ -20,11 +20,11 @@ public class DoctorAppointments {
 
     private String email;  // Patient's email
 
-
+    private String address;
 
     private LocalDate appointmentDate;  // Appointment date
 
-    private LocalTime createdAt;  // Appointment time
+//    private LocalTime createdAt;  // Appointment time
 
     @Column(columnDefinition = "TEXT")
     private String message;
@@ -83,13 +83,13 @@ public class DoctorAppointments {
         this.appointmentDate = appointmentDate;
     }
 
-    public LocalTime getAppointmentTime() {
-        return createdAt;
-    }
+//    public LocalTime getAppointmentTime() {
+//        return createdAt;
+//    }
 
-    public void setAppointmentTime(LocalTime createdAt) {
-        this.createdAt = createdAt;
-    }
+//    public void setAppointmentTime(LocalTime createdAt) {
+//        this.createdAt = createdAt;
+//    }
 
     public String getMessage() {
         return message;
@@ -115,6 +115,13 @@ public class DoctorAppointments {
         this.department = department;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
     @Override
     public String toString() {
@@ -124,7 +131,7 @@ public class DoctorAppointments {
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", email='" + email + '\'' +
                 ", appointmentDate=" + appointmentDate +
-                ", createdAt=" + createdAt +
+//                ", createdAt=" + createdAt +
                 ", message='" + message + '\'' +
                 ", doctors=" + doctors +
                 ", department=" + department +

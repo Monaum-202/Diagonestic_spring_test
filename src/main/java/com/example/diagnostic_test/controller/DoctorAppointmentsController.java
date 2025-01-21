@@ -10,7 +10,9 @@ import com.example.diagnostic_test.repository.DoctorsRepository;
 import com.example.diagnostic_test.service.DoctorAppointmentService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -55,12 +57,29 @@ public class DoctorAppointmentsController {
         return newDcList;
     }
 
+
     @PostMapping
-    public ResponseEntity<DoctorAppointments> createAppointment(@RequestBody DoctorAppointmentsDTO appointmentDTO) {
-        System.out.println("hello");
-        DoctorAppointments doctorAppointments = doctorAppointmentService.createAppointment(appointmentDTO);
-        return ResponseEntity.ok(doctorAppointments);
+    public ResponseEntity<String> createAppointment(
+            @Valid @RequestBody DoctorAppointmentsDTO doctorAppointmentsDTO,
+            BindingResult bindingResult) {
+
+        // Validate the DTO
+        if (bindingResult.hasErrors()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Validation failed: " + bindingResult.getAllErrors());
+        }
+
+        try {
+            // Create the appointment using the service
+            DoctorAppointments appointment = doctorAppointmentService.createAppointment(doctorAppointmentsDTO);
+            return ResponseEntity.status(HttpStatus.CREATED)
+                    .body("Appointment created successfully with ID: " + appointment.getId());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("An error occurred: " + e.getMessage());
+        }
     }
+}
 
 
 }

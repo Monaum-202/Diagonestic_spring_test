@@ -1,5 +1,7 @@
 package com.example.diagnostic_test.dto;
 
+import com.example.diagnostic_test.entity.Department;
+import com.example.diagnostic_test.entity.Doctors;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -17,7 +19,7 @@ public class DoctorAppointmentsDTO {
     @Email
     private String email;
 
-
+    private String address;
 
     @NotNull
     private LocalDate date;
@@ -25,10 +27,10 @@ public class DoctorAppointmentsDTO {
     private String message;
 
     @NotNull
-    private String doctor;
+    private Doctors doctor;
 
     @NotNull
-    private String department;
+    private Department department;
 
     public String getName() {
         return name;
@@ -70,19 +72,27 @@ public class DoctorAppointmentsDTO {
         this.message = message;
     }
 
-    public String getDoctor() {
-        return doctor;
-    }
-
-    public void setDoctor(String doctor) {
+    public void setDoctor(Doctors doctor) {
         this.doctor = doctor;
     }
 
-    public String getDepartment() {
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
+    public Doctors getDoctor() {
+        return doctor;
+    }
+
+    public Department getDepartment() {
         return department;
     }
 
-    public void setDepartment(String department) {
-        this.department = department;
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }
