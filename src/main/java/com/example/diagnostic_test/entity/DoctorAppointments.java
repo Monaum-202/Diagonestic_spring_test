@@ -20,9 +20,7 @@ public class DoctorAppointments {
 
     private String email;  // Patient's email
 
-    private String address;  // Patient's address
 
-    private String doctorName;  // Doctor's name (optional, stored for quick lookup)
 
     private LocalDate appointmentDate;  // Appointment date
 
@@ -75,21 +73,7 @@ public class DoctorAppointments {
         this.email = email;
     }
 
-    public String getAddress() {
-        return address;
-    }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getDoctorName() {
-        return doctorName;
-    }
-
-    public void setDoctorName(String doctorName) {
-        this.doctorName = doctorName;
-    }
 
     public LocalDate getAppointmentDate() {
         return appointmentDate;
@@ -139,8 +123,6 @@ public class DoctorAppointments {
                 ", patientName='" + patientName + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", email='" + email + '\'' +
-                ", address='" + address + '\'' +
-                ", doctorName='" + doctorName + '\'' +
                 ", appointmentDate=" + appointmentDate +
                 ", createdAt=" + createdAt +
                 ", message='" + message + '\'' +

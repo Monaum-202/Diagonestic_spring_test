@@ -19,7 +19,6 @@ public class Doctors {
     private String gender;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnore
     private Department department; // Reference to the department
 
     private String contactNumber; // Doctor's contact number
@@ -35,6 +34,8 @@ public class Doctors {
 
 
     @OneToMany(mappedBy = "doctors", cascade = CascadeType.ALL)
+    @ToString.Exclude
+    @JsonIgnore
     private List<DoctorAppointments> doctorAppointments;
 
 
