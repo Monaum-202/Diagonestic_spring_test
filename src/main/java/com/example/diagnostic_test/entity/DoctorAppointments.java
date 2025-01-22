@@ -1,6 +1,7 @@
 package com.example.diagnostic_test.entity;
 
 import jakarta.persistence.*;
+import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -20,15 +21,14 @@ public class DoctorAppointments {
 
     private String email;  // Patient's email
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 8b37d0d1a5c37b656623e763df37519c890b75b5
     private String address;
 
     private LocalDate appointmentDate;  // Appointment date
 
-//    private LocalTime createdAt;  // Appointment time
+
+    private LocalDateTime createdAt;
+
+    private LocalDateTime updatedAt; // Appointment time
 
     @Column(columnDefinition = "TEXT")
     private String message;
@@ -42,10 +42,19 @@ public class DoctorAppointments {
     private Department department;
 
 
+    @PrePersist
+    void createdAt() {
+        this.createdAt = this.updatedAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    void updatedAt() {
+        this.updatedAt = LocalDateTime.now();
+    }
 
 
 
-    public Long getId() {
+        public Long getId() {
         return id;
     }
 
@@ -69,13 +78,7 @@ public class DoctorAppointments {
         this.contactNumber = contactNumber;
     }
 
-    public LocalTime getCreatedAt() {
-        return createdAt;
-    }
 
-    public void setCreatedAt(LocalTime createdAt) {
-        this.createdAt = createdAt;
-    }
 
     public String getEmail() {
         return email;
@@ -133,6 +136,31 @@ public class DoctorAppointments {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+
+    public String getPatientName() {
+        return patientName;
+    }
+
+    public void setPatientName(String patientName) {
+        this.patientName = patientName;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     @Override

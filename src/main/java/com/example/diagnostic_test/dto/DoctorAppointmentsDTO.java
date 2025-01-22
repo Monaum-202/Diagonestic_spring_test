@@ -19,10 +19,6 @@ public class DoctorAppointmentsDTO {
     private String email;
 
     private String address;
-<<<<<<< HEAD
-
-=======
->>>>>>> 8b37d0d1a5c37b656623e763df37519c890b75b5
     @NotNull
     private LocalDate date;
 
@@ -101,11 +97,5 @@ public class DoctorAppointmentsDTO {
         this.address = address;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
+   
 }
