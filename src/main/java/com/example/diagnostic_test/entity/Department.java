@@ -1,5 +1,6 @@
 package com.example.diagnostic_test.entity;
 
+import com.example.diagnostic_test.dto.DepartmentDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -20,8 +21,6 @@ public class Department {
     private String name;
     private String description;
 
-
-
     @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @ToString.Exclude
     @JsonIgnore
@@ -32,11 +31,6 @@ public class Department {
     @JsonIgnore
     private List<DoctorAppointments> appointments;
 
-
-
-
-
-
     // Default constructor
     public Department() {}
 
@@ -44,6 +38,24 @@ public class Department {
     public Department(String name, String description) {
         this.name = name;
         this.description = description;
+    }
+
+    // Mapping to DTO
+    public DepartmentDTO mapToDTO() {
+        DepartmentDTO dto = new DepartmentDTO();
+        dto.setId(this.id);
+        dto.setName(this.name);
+        dto.setDescription(this.description);
+        return dto;
+    }
+
+    // Mapping from DTO to Entity
+    public static Department mapToEntity(DepartmentDTO dto) {
+        Department department = new Department();
+        department.setId(dto.getId());
+        department.setName(dto.getName());
+        department.setDescription(dto.getDescription());
+        return department;
     }
 
     public Long getId() {
@@ -74,7 +86,6 @@ public class Department {
         return doctors;
     }
 
-
     public void setDoctors(List<Doctors> doctors) {
         this.doctors = doctors;
     }
@@ -86,15 +97,6 @@ public class Department {
     public void setAppointments(List<DoctorAppointments> appointments) {
         this.appointments = appointments;
     }
-
-    //
-//    @Override
-//    public String toString() {
-//        return "Department{" +
-//                "id=" + id +
-//                ", name='" + name + '\'' +
-//                ", description='" + description + '\'' +
-//                '}';
-//    }
 }
+
 

@@ -33,6 +33,9 @@ public class DoctorAppointments {
     @Column(columnDefinition = "TEXT")
     private String message;
 
+
+
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "doctor_id", nullable = false)
     private Doctors doctors;
@@ -162,6 +165,8 @@ public class DoctorAppointments {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
+
+
 
     @Override
     public String toString() {

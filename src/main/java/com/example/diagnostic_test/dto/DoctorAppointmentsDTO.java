@@ -10,43 +10,41 @@ import java.time.LocalDate;
 
 public class DoctorAppointmentsDTO {
     @NotBlank
-    private String name;
+    private String patientName;
 
     @NotBlank
-    private String phone;
+    private String contactNumber;
 
     @Email
     private String email;
 
     private String address;
     @NotNull
-    private LocalDate date;
+    private LocalDate appointmentDate;
 
     private String message;
 
     @NotNull
-    private Doctors doctor;
+    private DoctorsDTO doctors;
 
     @NotNull
-    private Department department;
+    private DepartmentDTO department;
 
 
-
-
-    public String getName() {
-        return name;
+    public String getPatientName() {
+        return patientName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPatientName(String patientName) {
+        this.patientName = patientName;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getContactNumber() {
+        return contactNumber;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setContactNumber(String contactNumber) {
+        this.contactNumber = contactNumber;
     }
 
     public String getEmail() {
@@ -57,12 +55,20 @@ public class DoctorAppointmentsDTO {
         this.email = email;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public String getAddress() {
+        return address;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public LocalDate getAppointmentDate() {
+        return appointmentDate;
+    }
+
+    public void setAppointmentDate(LocalDate appointmentDate) {
+        this.appointmentDate = appointmentDate;
     }
 
     public String getMessage() {
@@ -73,29 +79,19 @@ public class DoctorAppointmentsDTO {
         this.message = message;
     }
 
-    public void setDoctor(Doctors doctor) {
-        this.doctor = doctor;
+    public DoctorsDTO getDoctors() {
+        return doctors;
     }
 
-    public void setDepartment(Department department) {
-        this.department = department;
+    public void setDoctors(DoctorsDTO doctors) {
+        this.doctors = doctors;
     }
 
-    public Doctors getDoctor() {
-        return doctor;
-    }
-
-    public Department getDepartment() {
+    public DepartmentDTO getDepartment() {
         return department;
     }
 
-    public String getAddress() {
-        return address;
+    public void setDepartment(DepartmentDTO department) {
+        this.department = department;
     }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-   
 }

@@ -37,6 +37,11 @@ public class DoctorAppointmentsController {
     private DoctorAppointmentService doctorAppointmentService;
 
     // Get all departments
+    @GetMapping
+    public List<DoctorAppointments> getAllDoctorAppointments() {
+        return doctorAppointmentsRepository.findAll();
+    }
+
     @GetMapping("/departments")
     public List<Department> getAllDepartments() {
         return departmentRepository.findAll();

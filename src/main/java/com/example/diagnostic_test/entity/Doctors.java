@@ -1,5 +1,6 @@
 package com.example.diagnostic_test.entity;
 
+import com.example.diagnostic_test.dto.DoctorsDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.ToString;
@@ -9,6 +10,7 @@ import java.util.List;
 @Entity
 @ToString
 public class Doctors {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,15 +33,41 @@ public class Doctors {
 
     private String scheduleTime;
 
-
-
     @OneToMany(mappedBy = "doctors", cascade = CascadeType.ALL)
     @ToString.Exclude
     @JsonIgnore
     private List<DoctorAppointments> doctorAppointments;
 
+    // Mapping to DTO
+    public DoctorsDTO mapToDTO() {
+        DoctorsDTO dto = new DoctorsDTO();
+        dto.setId(this.id);
+        dto.setName(this.name);
+        dto.setGender(this.gender);
+        dto.setDepartmentId(this.department != null ? this.department.getId() : null);
+        dto.setDepartmentName(this.department != null ? this.department.getName() : null);
+        dto.setContactNumber(this.contactNumber);
+        dto.setEmail(this.email);
+        dto.setQualification(this.qualification);
+        dto.setSpecialty(this.specialty);
+        dto.setScheduleTime(this.scheduleTime);
+        return dto;
+    }
 
-
+    // Mapping from DTO to Entity
+    public static Doctors mapToEntity(DoctorsDTO dto, Department department) {
+        Doctors doctor = new Doctors();
+        doctor.setId(dto.getId());
+        doctor.setName(dto.getName());
+        doctor.setGender(dto.getGender());
+        doctor.setDepartment(department); // Map the department using the provided object
+        doctor.setContactNumber(dto.getContactNumber());
+        doctor.setEmail(dto.getEmail());
+        doctor.setQualification(dto.getQualification());
+        doctor.setSpecialty(dto.getSpecialty());
+        doctor.setScheduleTime(dto.getScheduleTime());
+        return doctor;
+    }
 
     public Long getId() {
         return id;
@@ -121,3 +149,4 @@ public class Doctors {
         this.doctorAppointments = doctorAppointments;
     }
 }
+
