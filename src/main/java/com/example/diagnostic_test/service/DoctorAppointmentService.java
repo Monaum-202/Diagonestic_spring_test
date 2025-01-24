@@ -46,9 +46,10 @@ public class DoctorAppointmentService {
 
 //        Department department = Department.mapToEntity(appointmentDTO.getDepartment());
 //        Doctors doctors = Doctors.mapToEntity(appointmentDTO.getDoctors(), department);
-        Department department = departmentRepository.findById(appointmentDTO.getDepartment().getId())
+        Department department = departmentRepository.findById(appointmentDTO.getDepartment())
                 .orElseThrow(() -> new RuntimeException("Department not found"));
-        Doctors doctors = doctorsRepository.findById(appointmentDTO.getDoctors().getId())
+
+        Doctors doctors = doctorsRepository.findById(appointmentDTO.getDoctors())
                 .orElseThrow(() -> new RuntimeException("Doctor not found"));
 
         appointment.setDoctors(doctors);

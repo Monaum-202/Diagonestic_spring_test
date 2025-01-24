@@ -25,10 +25,10 @@ public class DoctorAppointmentsDTO {
     private String message;
 
     @NotNull
-    private DoctorsDTO doctors;
+    private Long doctors;
 
     @NotNull
-    private DepartmentDTO department;
+    private Long department;
 
 
     public String getPatientName() {
@@ -79,19 +79,19 @@ public class DoctorAppointmentsDTO {
         this.message = message;
     }
 
-    public DoctorsDTO getDoctors() {
+    public Long getDoctors() {
         return doctors;
     }
 
-    public void setDoctors(DoctorsDTO doctors) {
+    public void setDoctors(Long doctors) {
         this.doctors = doctors;
     }
 
-    public DepartmentDTO getDepartment() {
+    public Long getDepartment() {
         return department;
     }
 
-    public void setDepartment(DepartmentDTO department) {
+    public void setDepartment(Long department) {
         this.department = department;
     }
 }
