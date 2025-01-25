@@ -2,6 +2,7 @@ package com.example.diagnostic_test.entity.Prescription;
 
 
 import com.example.diagnostic_test.entity.Medicine.Medicine;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -11,8 +12,10 @@ public class PrescriptionMedicine {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
+    @JsonIgnore
     private Prescription prescription;
     @ManyToOne
+    @JsonIgnore
     private Medicine medicine;
     private String dosage;
     private String frequency;

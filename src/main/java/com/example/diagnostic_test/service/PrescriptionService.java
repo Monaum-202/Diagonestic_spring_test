@@ -2,8 +2,10 @@ package com.example.diagnostic_test.service;
 
 
 import com.example.diagnostic_test.dto.prescription.PrescriptionRequestDTO;
+import com.example.diagnostic_test.entity.Doctors;
 import com.example.diagnostic_test.entity.Prescription.Prescription;
 import com.example.diagnostic_test.entity.Prescription.PrescriptionMedicine;
+import com.example.diagnostic_test.repository.DoctorsRepository;
 import com.example.diagnostic_test.repository.medicineRepo.MedicineRepository;
 import com.example.diagnostic_test.repository.prescriptionRepo.PrescriptionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +22,15 @@ public class PrescriptionService {
     @Autowired
     private MedicineRepository medicineRepository;
 
+    @Autowired
+    private DoctorsRepository doctorsRepository;
+
     public Prescription createPrescription(PrescriptionRequestDTO request) {
         Prescription prescription = new Prescription();
-        prescription.setDoctorId(request.getDoctorId());
+        Doctors doctor = doctorsRepository.findById(request.getDoctors())
+                .orElseThrow(() -> new RuntimeException("Doctor not found"));
+
+        prescription.setDoctors(doctor);
         prescription.setPatientName(request.getPatientName());
         prescription.setCreatedAt(LocalDateTime.now());
 

@@ -11,12 +11,14 @@ public class MedicineCompany {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long categoryId;
-    private String categoryDetails;
-    private String categoryName;
+    private Long id;
+    private String name;
+
 
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
     @ToString.Exclude
     @JsonIgnore
     private List<Medicine> medicines;
+
+
 }

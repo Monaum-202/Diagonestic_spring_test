@@ -4,17 +4,17 @@ import java.util.List;
 
 public class PrescriptionRequestDTO {
 
-    private Long doctorId;
+    private Long doctors;
     private String patientName;
     private List<MedicineRequestDTO> medicines;
 
-    public Long getDoctorId() {
-        return doctorId;
-    }
-
-    public void setDoctorId(Long doctorId) {
-        this.doctorId = doctorId;
-    }
+//    public Long getDoctorId() {
+//        return doctors;
+//    }
+//
+//    public void setDoctorId(Long doctorId) {
+//        this.doctors = doctorId;
+//    }
 
     public String getPatientName() {
         return patientName;
@@ -30,5 +30,13 @@ public class PrescriptionRequestDTO {
 
     public void setMedicines(List<MedicineRequestDTO> medicines) {
         this.medicines = medicines;
+    }
+
+    public Long getDoctors() {
+        return doctors;
+    }
+
+    public void setDoctors(Long doctors) {
+        this.doctors = doctors;
     }
 }

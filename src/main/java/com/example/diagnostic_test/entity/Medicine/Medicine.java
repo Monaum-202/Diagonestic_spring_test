@@ -8,7 +8,7 @@ public class Medicine {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long medicineId;
+    private Long id;
     @ManyToOne
     @JoinColumn(name = "generic_id")
     @JsonIgnore

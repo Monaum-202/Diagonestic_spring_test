@@ -1,6 +1,8 @@
 package com.example.diagnostic_test.entity.Prescription;
 
 
+import com.example.diagnostic_test.entity.Doctors;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -12,10 +14,14 @@ public class Prescription {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long doctorId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Doctors doctors;
     private String patientName;
     private LocalDateTime createdAt;
     @OneToMany(mappedBy = "prescription", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<PrescriptionMedicine> medicines;
 
 
@@ -27,12 +33,14 @@ public class Prescription {
         this.id = id;
     }
 
-    public Long getDoctorId() {
-        return doctorId;
+
+
+    public Doctors getDoctors() {
+        return doctors;
     }
 
-    public void setDoctorId(Long doctorId) {
-        this.doctorId = doctorId;
+    public void setDoctors(Doctors doctors) {
+        this.doctors = doctors;
     }
 
     public String getPatientName() {
