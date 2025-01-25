@@ -84,6 +84,9 @@ public class DoctorAppointmentsController {
                     .body("An error occurred: " + e.getMessage());
         }
     }
+
+
+
 }
 
 

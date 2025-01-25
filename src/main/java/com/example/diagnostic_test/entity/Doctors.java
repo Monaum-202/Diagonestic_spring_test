@@ -21,6 +21,7 @@ public class Doctors {
     private String gender;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     private Department department; // Reference to the department
 
     private String contactNumber; // Doctor's contact number
