@@ -2,9 +2,12 @@ package com.example.diagnostic_test.service;
 
 
 import com.example.diagnostic_test.dto.prescription.PrescriptionRequestDTO;
+import com.example.diagnostic_test.entity.DiagonesticTest;
 import com.example.diagnostic_test.entity.Doctors;
 import com.example.diagnostic_test.entity.Prescription.Prescription;
 import com.example.diagnostic_test.entity.Prescription.PrescriptionMedicine;
+import com.example.diagnostic_test.entity.Prescription.PrescriptionTests;
+import com.example.diagnostic_test.repository.DiagonesticTestRepository;
 import com.example.diagnostic_test.repository.DoctorsRepository;
 import com.example.diagnostic_test.repository.medicineRepo.MedicineRepository;
 import com.example.diagnostic_test.repository.prescriptionRepo.PrescriptionRepository;
@@ -25,6 +28,9 @@ public class PrescriptionService {
     @Autowired
     private DoctorsRepository doctorsRepository;
 
+    @Autowired
+    private DiagonesticTestRepository diagonesticTestRepository;
+
     public Prescription createPrescription(PrescriptionRequestDTO request) {
         Prescription prescription = new Prescription();
         Doctors doctor = doctorsRepository.findById(request.getDoctors())
@@ -44,6 +50,19 @@ public class PrescriptionService {
         }).collect(Collectors.toList());
 
         prescription.setMedicines(prescriptionMedicines);
+
+
+        List<PrescriptionTests> prescriptionTests = request.getDiagonesticTests().stream().map(dte -> {
+            PrescriptionTests pt = new PrescriptionTests();
+            pt.setDiagonesticTest(diagonesticTestRepository.findById(dte.getId()).orElseThrow());
+            pt.setPrescription(prescription);
+            return pt;
+        }).collect(Collectors.toList());
+
+        prescription.setDiagonesticTests(prescriptionTests);
+
+
+
         return prescriptionRepository.save(prescription);
     }
 }

@@ -1,6 +1,7 @@
 package com.example.diagnostic_test.entity.Prescription;
 
 
+import com.example.diagnostic_test.entity.DiagonesticTest;
 import com.example.diagnostic_test.entity.Doctors;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -24,6 +25,10 @@ public class Prescription {
     @OneToMany(mappedBy = "prescription", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<PrescriptionMedicine> medicines;
+
+    @OneToMany(mappedBy = "prescription", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<PrescriptionTests> diagonesticTests;
 
 
     public Long getId() {
@@ -66,5 +71,13 @@ public class Prescription {
 
     public void setMedicines(List<PrescriptionMedicine> medicines) {
         this.medicines = medicines;
+    }
+
+    public List<PrescriptionTests> getDiagonesticTests() {
+        return diagonesticTests;
+    }
+
+    public void setDiagonesticTests(List<PrescriptionTests> diagonesticTests) {
+        this.diagonesticTests = diagonesticTests;
     }
 }

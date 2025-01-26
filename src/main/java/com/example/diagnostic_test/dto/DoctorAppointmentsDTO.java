@@ -30,6 +30,9 @@ public class DoctorAppointmentsDTO {
     @NotNull
     private Long department;
 
+    @NotNull
+    private Long tests;
+
 
     public String getPatientName() {
         return patientName;

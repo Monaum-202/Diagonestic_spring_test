@@ -1,5 +1,8 @@
 package com.example.diagnostic_test.dto.prescription;
 
+import com.example.diagnostic_test.dto.DiagonesticTestDTO;
+import com.example.diagnostic_test.entity.DiagonesticTest;
+
 import java.util.List;
 
 public class PrescriptionRequestDTO {
@@ -7,6 +10,8 @@ public class PrescriptionRequestDTO {
     private Long doctors;
     private String patientName;
     private List<MedicineRequestDTO> medicines;
+
+    private List<DiagonesticTestDTO> diagonesticTests;
 
 //    public Long getDoctorId() {
 //        return doctors;
@@ -38,5 +43,13 @@ public class PrescriptionRequestDTO {
 
     public void setDoctors(Long doctors) {
         this.doctors = doctors;
+    }
+
+    public List<DiagonesticTestDTO> getDiagonesticTests() {
+        return diagonesticTests;
+    }
+
+    public void setDiagonesticTests(List<DiagonesticTestDTO> diagonesticTests) {
+        this.diagonesticTests = diagonesticTests;
     }
 }
