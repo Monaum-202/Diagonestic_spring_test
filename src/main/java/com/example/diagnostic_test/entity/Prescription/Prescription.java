@@ -16,6 +16,7 @@ public class Prescription {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "doctorId", nullable = false)
     @JsonIgnore
     private Doctors doctors;
     private String patientName;

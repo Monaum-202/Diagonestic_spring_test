@@ -3,6 +3,7 @@ package com.example.diagnostic_test.controller;
 import com.example.diagnostic_test.dto.prescription.PrescriptionRequestDTO;
 import com.example.diagnostic_test.entity.Prescription.Prescription;
 import com.example.diagnostic_test.service.PrescriptionService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +17,7 @@ public class PrescriptionController {
     private PrescriptionService prescriptionService;
 
     @PostMapping
-    public ResponseEntity<Prescription> createPrescription(@RequestBody PrescriptionRequestDTO request) {
+    public ResponseEntity<Prescription> createPrescription(@Valid @RequestBody PrescriptionRequestDTO request) {
         return ResponseEntity.ok(prescriptionService.createPrescription(request));
     }
 }
