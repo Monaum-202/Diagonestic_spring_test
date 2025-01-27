@@ -1,6 +1,7 @@
 package com.example.diagnostic_test.dto.diagnosticReceipt;
 
 import com.example.diagnostic_test.dto.DiagonesticTestDTO;
+import com.example.diagnostic_test.dto.DoctorsDTO;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class DiagnosticMoneyReciptDTo {
     private double paidAmount;
     private double dueAmount;
 
-    private DO refBy;
+    private DoctorsDTO refBy;
     private List<DiagonesticTestDTO> diagonesticTests;
 
 
@@ -103,12 +104,12 @@ public class DiagnosticMoneyReciptDTo {
         this.dueAmount = dueAmount;
     }
 
-    public Long getRefBy() {
-        return refBy;
+    public void setRefBy(DoctorsDTO refBy) {
+        this.refBy = refBy;
     }
 
-    public void setRefBy(Long refBy) {
-        this.refBy = refBy;
+    public DoctorsDTO getRefBy() {
+        return refBy;
     }
 
     public List<DiagonesticTestDTO> getDiagonesticTests() {

@@ -183,16 +183,6 @@ public class DiagnosticMoneyReceipt {
             dto.setRefBy(doctorDTO);
         }
 
-        if (this.diagonesticTests != null) {
-            List<DiagnoTestDTO> testDTOs = this.diagonesticTests.stream().map(test -> {
-                DiagnoTestDTO testDTO = new DiagnoTestDTO();
-                testDTO.setId(test.getId());
-                testDTO.setTestName(test.getTestName());
-                testDTO.setPrice(test.getPrice());
-                return testDTO;
-            }).collect(Collectors.toList());
-            dto.setDiagonesticTests(testDTOs);
-        }
 
         return dto;
     }
