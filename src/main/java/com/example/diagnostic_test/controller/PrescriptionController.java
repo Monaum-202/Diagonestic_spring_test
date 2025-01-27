@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 // Controllers
 @RestController
 @CrossOrigin(origins = "http://localhost:4200", allowCredentials = "true")
@@ -19,5 +21,31 @@ public class PrescriptionController {
     @PostMapping
     public ResponseEntity<Prescription> createPrescription(@Valid @RequestBody PrescriptionRequestDTO request) {
         return ResponseEntity.ok(prescriptionService.createPrescription(request));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Prescription>> getAllPrescriptions() {
+        List<Prescription> prescriptions = prescriptionService.getAllPrescriptions();
+        return ResponseEntity.ok(prescriptions);}
+
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Prescription> getPrescriptionById(@PathVariable Long id) {
+        Prescription prescription = prescriptionService.getPrescriptionById(id);
+        return ResponseEntity.ok(prescription);
+    }
+
+
+        @PutMapping("/update/{id}")
+    public ResponseEntity<Prescription> updatePrescription(@PathVariable Long id,
+                                                           @RequestBody PrescriptionRequestDTO request) {
+        Prescription updatedPrescription = prescriptionService.updatePrescription(id, request);
+        return ResponseEntity.ok(updatedPrescription);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deletePrescription(@PathVariable Long id) {
+        prescriptionService.deletePrescription(id);
+        return ResponseEntity.ok("Prescription deleted successfully");
     }
 }

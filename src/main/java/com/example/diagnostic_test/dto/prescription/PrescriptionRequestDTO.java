@@ -7,6 +7,7 @@ import java.util.List;
 
 public class PrescriptionRequestDTO {
 
+    private long id;
     private Long doctors;
     private String patientName;
     private List<MedicineRequestDTO> medicines;
@@ -51,5 +52,13 @@ public class PrescriptionRequestDTO {
 
     public void setDiagonesticTests(List<DiagonesticTestDTO> diagonesticTests) {
         this.diagonesticTests = diagonesticTests;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

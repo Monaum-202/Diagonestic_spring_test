@@ -2,6 +2,7 @@ package com.example.diagnostic_test.entity;
 
 import com.example.diagnostic_test.dto.DoctorsDTO;
 import com.example.diagnostic_test.entity.Prescription.Prescription;
+import com.example.diagnostic_test.entity.diagonesticEntry.DiagnosticMoneyReceipt;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.ToString;
@@ -44,6 +45,11 @@ public class Doctors {
     @ToString.Exclude
     @JsonIgnore
     private List<Prescription> prescriptions;
+
+    @OneToMany(mappedBy = "doctors", cascade = CascadeType.ALL)
+    @ToString.Exclude
+    @JsonIgnore
+    private List<DiagnosticMoneyReceipt> diagnosticMoneyReceipts;
 
     // Mapping to DTO
     public DoctorsDTO mapToDTO() {
@@ -162,6 +168,14 @@ public class Doctors {
 
     public void setPrescriptions(List<Prescription> prescriptions) {
         this.prescriptions = prescriptions;
+    }
+
+    public List<DiagnosticMoneyReceipt> getDiagnosticMoneyReceipts() {
+        return diagnosticMoneyReceipts;
+    }
+
+    public void setDiagnosticMoneyReceipts(List<DiagnosticMoneyReceipt> diagnosticMoneyReceipts) {
+        this.diagnosticMoneyReceipts = diagnosticMoneyReceipts;
     }
 }
 

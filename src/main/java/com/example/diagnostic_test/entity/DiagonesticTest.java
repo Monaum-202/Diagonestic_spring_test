@@ -19,9 +19,9 @@ public class DiagonesticTest {
 
     private Double price;
 
-    @ManyToOne
-    @JsonIgnore
-    private Prescription prescription;
+//    @ManyToOne
+//    @JsonIgnore
+//    private Prescription prescription;
 
     // Convert entity to DTO
     public DiagonesticTestDTO mapToDTO() {

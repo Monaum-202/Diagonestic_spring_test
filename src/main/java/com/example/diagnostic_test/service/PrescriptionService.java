@@ -11,6 +11,7 @@ import com.example.diagnostic_test.repository.DiagonesticTestRepository;
 import com.example.diagnostic_test.repository.DoctorsRepository;
 import com.example.diagnostic_test.repository.medicineRepo.MedicineRepository;
 import com.example.diagnostic_test.repository.prescriptionRepo.PrescriptionRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -64,5 +65,57 @@ public class PrescriptionService {
 
 
         return prescriptionRepository.save(prescription);
+    }
+
+
+
+    @Transactional
+    public Prescription updatePrescription(Long id, PrescriptionRequestDTO request) {
+        Prescription prescription = prescriptionRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Prescription not found"));
+
+        Doctors doctor = doctorsRepository.findById(request.getDoctors())
+                .orElseThrow(() -> new RuntimeException("Doctor not found"));
+        prescription.setDoctors(doctor);
+        prescription.setPatientName(request.getPatientName());
+
+        prescription.getMedicines().clear();
+        List<PrescriptionMedicine> updatedMedicines = request.getMedicines().stream().map(med -> {
+            PrescriptionMedicine pm = new PrescriptionMedicine();
+            pm.setMedicine(medicineRepository.findById(med.getId()).orElseThrow());
+            pm.setDosage(med.getDosage());
+            pm.setFrequency(med.getFrequency());
+            pm.setPrescription(prescription);
+            return pm;
+        }).collect(Collectors.toList());
+        prescription.setMedicines(updatedMedicines);
+
+        prescription.getDiagonesticTests().clear();
+        List<PrescriptionTests> updatedTests = request.getDiagonesticTests().stream().map(dte -> {
+            PrescriptionTests pt = new PrescriptionTests();
+            pt.setDiagonesticTest(diagonesticTestRepository.findById(dte.getId()).orElseThrow());
+            pt.setPrescription(prescription);
+            return pt;
+        }).collect(Collectors.toList());
+        prescription.setDiagonesticTests(updatedTests);
+
+        return prescriptionRepository.save(prescription);
+    }
+
+    @Transactional
+    public void deletePrescription(Long id) {
+        Prescription prescription = prescriptionRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Prescription not found"));
+        prescriptionRepository.delete(prescription);
+    }
+
+
+    public List<Prescription> getAllPrescriptions() {
+        return prescriptionRepository.findAll();
+    }
+
+    public Prescription getPrescriptionById(Long id) {
+        return prescriptionRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Prescription not found"));
     }
 }
