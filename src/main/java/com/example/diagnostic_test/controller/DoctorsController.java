@@ -1,6 +1,8 @@
 package com.example.diagnostic_test.controller;
 
+import com.example.diagnostic_test.entity.Department;
 import com.example.diagnostic_test.entity.DoctorAppointments;
+import com.example.diagnostic_test.entity.Doctors;
 import com.example.diagnostic_test.repository.DoctorAppointmentsRepository;
 import com.example.diagnostic_test.repository.DoctorsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,5 +36,10 @@ public class DoctorsController {
         }
 //        return departmentRepository.getById(departmentId).getDoctors();
         return newPatientList;
+    }
+
+    @PostMapping
+    public Doctors createUser(@RequestBody Doctors doctors) {
+        return doctorRepository.save(doctors);  // Save the user to the database
     }
 }

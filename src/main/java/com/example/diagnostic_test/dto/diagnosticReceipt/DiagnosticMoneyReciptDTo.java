@@ -19,7 +19,7 @@ public class DiagnosticMoneyReciptDTo {
     private double paidAmount;
     private double dueAmount;
 
-    private DoctorsDTO refBy;
+    private Long refBy;
     private List<DiagonesticTestDTO> diagonesticTests;
 
 
@@ -104,12 +104,12 @@ public class DiagnosticMoneyReciptDTo {
         this.dueAmount = dueAmount;
     }
 
-    public void setRefBy(DoctorsDTO refBy) {
-        this.refBy = refBy;
+    public Long getRefBy() {
+        return refBy;
     }
 
-    public DoctorsDTO getRefBy() {
-        return refBy;
+    public void setRefBy(Long refBy) {
+        this.refBy = refBy;
     }
 
     public List<DiagonesticTestDTO> getDiagonesticTests() {

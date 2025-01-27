@@ -9,9 +9,14 @@ public class DiagnoTests {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @ManyToOne
     @JsonIgnore
     private DiagonesticTest diagonesticTest;
+
+    @ManyToOne
+    @JsonIgnore
+    private DiagnosticMoneyReceipt diagnosticMoneyReceipt;
 
     public Long getId() {
         return id;
@@ -27,5 +32,13 @@ public class DiagnoTests {
 
     public void setDiagonesticTest(DiagonesticTest diagonesticTest) {
         this.diagonesticTest = diagonesticTest;
+    }
+
+    public DiagnosticMoneyReceipt getDiagnosticMoneyReceipt() {
+        return diagnosticMoneyReceipt;
+    }
+
+    public void setDiagnosticMoneyReceipt(DiagnosticMoneyReceipt diagnosticMoneyReceipt) {
+        this.diagnosticMoneyReceipt = diagnosticMoneyReceipt;
     }
 }

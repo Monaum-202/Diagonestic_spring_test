@@ -17,7 +17,6 @@ public class DiagnosticMoneyReceipt {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "doctorId", nullable = false)
     @JsonIgnore
     private Doctors refBy;
 
@@ -36,7 +35,7 @@ public class DiagnosticMoneyReceipt {
 
 
 
-    @OneToMany(mappedBy = "prescription", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "diagnosticMoneyReceipt", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<DiagnoTests> diagonesticTests;
 
@@ -175,14 +174,6 @@ public class DiagnosticMoneyReceipt {
         dto.setPayableAmount(this.payableAmount);
         dto.setPaidAmount(this.paidAmount);
         dto.setDueAmount(this.dueAmount);
-
-        if (this.refBy != null) {
-            DoctorsDTO doctorDTO = new DoctorsDTO();
-            doctorDTO.setId(this.refBy.getId());
-            doctorDTO.setName(this.refBy.getName());
-            dto.setRefBy(doctorDTO);
-        }
-
 
         return dto;
     }

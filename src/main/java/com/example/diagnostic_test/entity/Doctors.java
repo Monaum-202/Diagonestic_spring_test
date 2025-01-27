@@ -36,17 +36,17 @@ public class Doctors {
 
     private String scheduleTime;
 
-    @OneToMany(mappedBy = "doctors", cascade = CascadeType.ALL)
+    @OneToMany( cascade = CascadeType.ALL)
     @ToString.Exclude
     @JsonIgnore
     private List<DoctorAppointments> doctorAppointments;
 
-    @OneToMany(mappedBy = "doctors", cascade = CascadeType.ALL)
+    @OneToMany( cascade = CascadeType.ALL)
     @ToString.Exclude
     @JsonIgnore
     private List<Prescription> prescriptions;
 
-    @OneToMany(mappedBy = "doctors", cascade = CascadeType.ALL)
+    @OneToMany( cascade = CascadeType.ALL)
     @ToString.Exclude
     @JsonIgnore
     private List<DiagnosticMoneyReceipt> diagnosticMoneyReceipts;
