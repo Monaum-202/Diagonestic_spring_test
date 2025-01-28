@@ -7,8 +7,12 @@ import com.example.diagnostic_test.entity.diagonesticEntry.DiagnosticMoneyReceip
 import com.example.diagnostic_test.service.DiagnosticMoneyReceiptService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200", allowCredentials = "true")
@@ -21,5 +25,34 @@ public class DiagnosticMoneyReciptController {
     @PostMapping
     public ResponseEntity<DiagnosticMoneyReceipt> createPrescription(@Valid @RequestBody DiagnosticMoneyReciptDTo request) {
         return ResponseEntity.ok(diagnosticMoneyReceiptService.createDiagnosticMoneyReceipt(request));
+    }
+
+    @GetMapping
+    public List<DiagnosticMoneyReceipt> getAllDiagnosticMoneyReceipts() {
+        return diagnosticMoneyReceiptService.getAllDiagnosticMoneyReceipts();
+    }
+
+    // GET DiagnosticMoneyReceipt by ID
+    @GetMapping("/{id}")
+    public ResponseEntity<DiagnosticMoneyReceipt> getDiagnosticMoneyReceiptById(@PathVariable Long id) {
+        DiagnosticMoneyReceipt receipt = diagnosticMoneyReceiptService.getDiagnosticMoneyReceiptById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Diagnostic Money Receipt not found"));
+        return ResponseEntity.ok(receipt);
+    }
+
+    // CREATE or UPDATE (PUT)
+    @PutMapping("/{id}")
+    public ResponseEntity<DiagnosticMoneyReceipt> updateDiagnosticMoneyReceipt(
+            @PathVariable Long id,
+            @RequestBody DiagnosticMoneyReciptDTo request) {
+        DiagnosticMoneyReceipt updatedReceipt = diagnosticMoneyReceiptService.updateDiagnosticMoneyReceipt(id, request);
+        return ResponseEntity.ok(updatedReceipt);
+    }
+
+    // DELETE DiagnosticMoneyReceipt
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteDiagnosticMoneyReceipt(@PathVariable Long id) {
+        diagnosticMoneyReceiptService.deleteDiagnosticMoneyReceipt(id);
+        return ResponseEntity.noContent().build();
     }
 }

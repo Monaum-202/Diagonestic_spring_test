@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,12 +37,11 @@ public class DoctorAppointmentsController {
     @Autowired
     private DoctorAppointmentService doctorAppointmentService;
 
-    // Get all departments
+    // GET all DoctorAppointments
     @GetMapping
-    public List<DoctorAppointments> getAllDoctorAppointments() {
-        return doctorAppointmentsRepository.findAll();
+    public List<DoctorAppointments> getAllAppointments() {
+        return doctorAppointmentService.getAllAppointments();
     }
-
     @GetMapping("/departments")
     public List<Department> getAllDepartments() {
         return departmentRepository.findAll();
@@ -86,6 +86,31 @@ public class DoctorAppointmentsController {
     }
 
 
+
+
+    // GET DoctorAppointment by ID
+    @GetMapping("/{id}")
+    public ResponseEntity<DoctorAppointments> getAppointmentById(@PathVariable Long id) {
+        DoctorAppointments appointment = doctorAppointmentService.getAppointmentById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Appointment not found"));
+        return ResponseEntity.ok(appointment);
+    }
+
+    // CREATE or UPDATE (PUT)
+    @PutMapping("/{id}")
+    public ResponseEntity<DoctorAppointments> updateAppointment(
+            @PathVariable Long id,
+            @RequestBody DoctorAppointmentsDTO appointmentDTO) {
+        DoctorAppointments updatedAppointment = doctorAppointmentService.updateAppointment(id, appointmentDTO);
+        return ResponseEntity.ok(updatedAppointment);
+    }
+
+    // DELETE DoctorAppointment by ID
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteAppointment(@PathVariable Long id) {
+        doctorAppointmentService.deleteAppointment(id);
+        return ResponseEntity.noContent().build();
+    }
 
 }
 

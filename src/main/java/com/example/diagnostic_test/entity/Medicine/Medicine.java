@@ -27,4 +27,77 @@ public class Medicine {
     private Double price;
     private String packSize;
 //    private Double buyingPrice;
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public MedicineGeneric getGeneric() {
+        return generic;
+    }
+
+    public void setGeneric(MedicineGeneric generic) {
+        this.generic = generic;
+    }
+
+    public MedicineCompany getCompany() {
+        return company;
+    }
+
+    public void setCompany(MedicineCompany company) {
+        this.company = company;
+    }
+
+    public MedicineCategory getCategory() {
+        return category;
+    }
+
+    public void setCategory(MedicineCategory category) {
+        this.category = category;
+    }
+
+    public String getMedicineName() {
+        return medicineName;
+    }
+
+    public void setMedicineName(String medicineName) {
+        this.medicineName = medicineName;
+    }
+
+    public String getForm() {
+        return form;
+    }
+
+    public void setForm(String form) {
+        this.form = form;
+    }
+
+    public String getStrength() {
+        return strength;
+    }
+
+    public void setStrength(String strength) {
+        this.strength = strength;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public String getPackSize() {
+        return packSize;
+    }
+
+    public void setPackSize(String packSize) {
+        this.packSize = packSize;
+    }
 }

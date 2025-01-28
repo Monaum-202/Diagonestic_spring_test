@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -38,8 +39,39 @@ public class DoctorsController {
         return newPatientList;
     }
 
+    @GetMapping
+    public List<Doctors> getAllUsers() {
+        return doctorRepository.findAll();
+    }
+
     @PostMapping
     public Doctors createUser(@RequestBody Doctors doctors) {
         return doctorRepository.save(doctors);  // Save the user to the database
     }
+
+    @GetMapping("/{id}")
+    public Doctors getUserById(@PathVariable long id) {
+        Optional<Doctors> user = doctorRepository.findById(id);
+        return user.orElse(null);  // Return the user if found, otherwise return null
+    }
+
+
+    @PutMapping("/{id}")
+    public Doctors updateUser(@PathVariable long id, @RequestBody Doctors doctors) {
+        if (doctorRepository.existsById(id)) {
+            doctors.setId(id);
+            return doctorRepository.save(doctors);
+        }
+        return null;
+    }
+
+    @DeleteMapping("/{id}")
+    public String deleteUser(@PathVariable long id) {
+        if (doctorRepository.existsById(id)) {
+            doctorRepository.deleteById(id);
+            return "User deleted successfully.";
+        }
+        return "User not found.";
+    }
+
 }

@@ -10,27 +10,21 @@ import com.example.diagnostic_test.repository.DoctorsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 
 @Service
 public class DoctorAppointmentService {
 
-@Autowired
-    private final DoctorAppointmentsRepository doctorAppointmentsRepository;
+    @Autowired
+    private DoctorAppointmentsRepository doctorAppointmentsRepository;
 
-@Autowired
-    private final DoctorsRepository doctorsRepository;
+    @Autowired
+    private DoctorsRepository doctorsRepository;
 
-@Autowired
-    private final DepartmentRepository departmentRepository;
-
-
-    public DoctorAppointmentService(DoctorAppointmentsRepository doctorAppointmentsRepository,
-                              DoctorsRepository doctorsRepository,
-                              DepartmentRepository departmentRepository) {
-        this.doctorAppointmentsRepository = doctorAppointmentsRepository;
-        this.doctorsRepository = doctorsRepository;
-        this.departmentRepository = departmentRepository;
-    }
+    @Autowired
+    private DepartmentRepository departmentRepository;
 
 
     public DoctorAppointments createAppointment(DoctorAppointmentsDTO appointmentDTO) {
@@ -57,6 +51,47 @@ public class DoctorAppointmentService {
 
         // Save appointment to the database
         return doctorAppointmentsRepository.save(appointment);
+    }
+
+    // Get all DoctorAppointments
+    public List<DoctorAppointments> getAllAppointments() {
+        return doctorAppointmentsRepository.findAll();
+    }
+
+    // Get DoctorAppointment by ID
+    public Optional<DoctorAppointments> getAppointmentById(Long id) {
+        return doctorAppointmentsRepository.findById(id);
+    }
+
+    // Update DoctorAppointment (or create if not exists)
+    public DoctorAppointments updateAppointment(Long id, DoctorAppointmentsDTO appointmentDTO) {
+        DoctorAppointments existingAppointment = doctorAppointmentsRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Appointment not found"));
+
+        Department department = departmentRepository.findById(appointmentDTO.getDepartment())
+                .orElseThrow(() -> new RuntimeException("Department not found"));
+
+        Doctors doctors = doctorsRepository.findById(appointmentDTO.getDoctors())
+                .orElseThrow(() -> new RuntimeException("Doctor not found"));
+
+        existingAppointment.setPatientName(appointmentDTO.getPatientName());
+        existingAppointment.setContactNumber(appointmentDTO.getContactNumber());
+        existingAppointment.setEmail(appointmentDTO.getEmail());
+        existingAppointment.setAddress(appointmentDTO.getAddress());
+        existingAppointment.setAppointmentDate(appointmentDTO.getAppointmentDate());
+        existingAppointment.setMessage(appointmentDTO.getMessage());
+        existingAppointment.setDepartment(department);
+        existingAppointment.setDoctors(doctors);
+
+        return doctorAppointmentsRepository.save(existingAppointment);
+    }
+
+    // Delete DoctorAppointment by ID
+    public void deleteAppointment(Long id) {
+        if (!doctorAppointmentsRepository.existsById(id)) {
+            throw new RuntimeException("Appointment not found");
+        }
+        doctorAppointmentsRepository.deleteById(id);
     }
 }
 

@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -53,6 +54,7 @@ public class DiagnosticMoneyReceiptService {
         List<DiagnoTests> diagnoTests = request.getDiagonesticTests().stream().map(dts -> {
             DiagnoTests dt = new DiagnoTests();
             dt.setDiagonesticTest(diagonesticTestRepository.findById(dts.getId()).orElseThrow());
+            dt.setDiagnosticMoneyReceipt(diagnosticMoneyReceipt);
             return dt;
         }).collect(Collectors.toList());
 
@@ -61,5 +63,54 @@ public class DiagnosticMoneyReceiptService {
 
 
         return diagnosticMoneyReceiptRepository.save(diagnosticMoneyReceipt);
+    }
+
+
+
+    // Get all DiagnosticMoneyReceipts
+    public List<DiagnosticMoneyReceipt> getAllDiagnosticMoneyReceipts() {
+        return diagnosticMoneyReceiptRepository.findAll();
+    }
+
+    // Get DiagnosticMoneyReceipt by ID
+    public Optional<DiagnosticMoneyReceipt> getDiagnosticMoneyReceiptById(Long id) {
+        return diagnosticMoneyReceiptRepository.findById(id);
+    }
+
+    // Update DiagnosticMoneyReceipt (or create if not exists)
+    public DiagnosticMoneyReceipt updateDiagnosticMoneyReceipt(Long id, DiagnosticMoneyReciptDTo request) {
+        DiagnosticMoneyReceipt existingReceipt = diagnosticMoneyReceiptRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Diagnostic Money Receipt not found"));
+
+        Doctors doctor = doctorsRepository.findById(request.getRefBy())
+                .orElseThrow(() -> new RuntimeException("Doctor not found"));
+
+        existingReceipt.setRefBy(doctor);
+        existingReceipt.setPatientName(request.getPatientName());
+        existingReceipt.setAge(request.getAge());
+        existingReceipt.setSex(request.getSex());
+        existingReceipt.setMobile(request.getMobile());
+        existingReceipt.setTotalAmount(request.getTotalAmount());
+        existingReceipt.setDiscount(request.getDiscount());
+        existingReceipt.setPayableAmount(request.getPayableAmount());
+        existingReceipt.setPaidAmount(request.getPaidAmount());
+        existingReceipt.setDueAmount(request.getDueAmount());
+
+        List<DiagnoTests> diagnoTests = request.getDiagonesticTests().stream().map(dts -> {
+            DiagnoTests dt = new DiagnoTests();
+            dt.setDiagonesticTest(diagonesticTestRepository.findById(dts.getId()).orElseThrow());
+            return dt;
+        }).collect(Collectors.toList());
+        existingReceipt.setDiagonesticTests(diagnoTests);
+
+        return diagnosticMoneyReceiptRepository.save(existingReceipt);
+    }
+
+    // Delete DiagnosticMoneyReceipt by ID
+    public void deleteDiagnosticMoneyReceipt(Long id) {
+        if (!diagnosticMoneyReceiptRepository.existsById(id)) {
+            throw new RuntimeException("Diagnostic Money Receipt not found");
+        }
+        diagnosticMoneyReceiptRepository.deleteById(id);
     }
 }
