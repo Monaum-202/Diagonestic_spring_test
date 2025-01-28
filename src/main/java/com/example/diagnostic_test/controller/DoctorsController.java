@@ -5,7 +5,11 @@ import com.example.diagnostic_test.entity.DoctorAppointments;
 import com.example.diagnostic_test.entity.Doctors;
 import com.example.diagnostic_test.repository.DoctorAppointmentsRepository;
 import com.example.diagnostic_test.repository.DoctorsRepository;
+import com.example.diagnostic_test.service.DoctorsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -21,6 +25,9 @@ public class DoctorsController {
 
     @Autowired
     private DoctorsRepository doctorRepository;
+
+    @Autowired
+    private DoctorsService doctorsService;
 
     @Autowired
     private DoctorAppointmentsRepository doctorAppointmentsRepository;
@@ -74,4 +81,34 @@ public class DoctorsController {
         return "User not found.";
     }
 
+
+    // Search API for doctors with pagination
+    @GetMapping("/search")
+    public Page<Doctors> searchDoctors(
+            @RequestParam(value = "name", required = false) String name,
+            @RequestParam(value = "gender", required = false) String gender,
+            @RequestParam(value = "specialty", required = false) String specialty,
+            @RequestParam(value = "scheduleTime", required = false) String scheduleTime,
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "10") int size) {
+
+        Pageable pageable = PageRequest.of(page, size);
+        return doctorsService.searchDoctors(name, gender, specialty, scheduleTime, pageable);
+    }
+
+
+
+//    @GetMapping("/department/{departmentId}")
+//    public Page<Doctors> findDoctorsByDepartment(
+//            @PathVariable Long departmentId,
+//            @RequestParam(value = "page", defaultValue = "0") int page,
+//            @RequestParam(value = "size", defaultValue = "10") int size) {
+//
+//        Pageable pageable = PageRequest.of(page, size);
+//        return doctorsService.findDoctorsByDepartment(departmentId, pageable);
+//    }
+
+
 }
+
+
