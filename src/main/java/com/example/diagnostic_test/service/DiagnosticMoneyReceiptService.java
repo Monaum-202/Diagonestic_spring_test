@@ -12,6 +12,8 @@ import com.example.diagnostic_test.repository.DiagnosticMoneyReceiptRepository;
 import com.example.diagnostic_test.repository.DiagonesticTestRepository;
 import com.example.diagnostic_test.repository.DoctorsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -112,5 +114,13 @@ public class DiagnosticMoneyReceiptService {
             throw new RuntimeException("Diagnostic Money Receipt not found");
         }
         diagnosticMoneyReceiptRepository.deleteById(id);
+    }
+
+    public Page<DiagnosticMoneyReceipt> searchDiagnosticMoneyReceipts(
+            String patientName,
+            String mobile,
+            Long refById,
+            Pageable pageable) {
+        return diagnosticMoneyReceiptRepository.searchDiagnosticMoneyReceipts(patientName, mobile, refById, pageable);
     }
 }

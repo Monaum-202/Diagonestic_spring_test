@@ -8,8 +8,11 @@ import com.example.diagnostic_test.repository.DepartmentRepository;
 import com.example.diagnostic_test.repository.DoctorAppointmentsRepository;
 import com.example.diagnostic_test.repository.DoctorsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -92,6 +95,16 @@ public class DoctorAppointmentService {
             throw new RuntimeException("Appointment not found");
         }
         doctorAppointmentsRepository.deleteById(id);
+    }
+
+
+    public Page<DoctorAppointments> searchAppointments(
+            String patientName,
+            String contactNumber,
+            String email,
+            LocalDate appointmentDate,
+            Pageable pageable) {
+        return doctorAppointmentsRepository.searchAppointments(patientName, contactNumber, email, appointmentDate, pageable);
     }
 }
 

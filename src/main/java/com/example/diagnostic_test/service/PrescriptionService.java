@@ -13,6 +13,8 @@ import com.example.diagnostic_test.repository.medicineRepo.MedicineRepository;
 import com.example.diagnostic_test.repository.prescriptionRepo.PrescriptionRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -117,5 +119,17 @@ public class PrescriptionService {
     public Prescription getPrescriptionById(Long id) {
         return prescriptionRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Prescription not found"));
+    }
+
+    public Page<Prescription> searchPrescriptions(Long doctorId, String patientName, Pageable pageable) {
+        if (doctorId != null && patientName != null) {
+            return prescriptionRepository.findByDoctorsIdAndPatientNameContaining(doctorId, patientName, pageable);
+        } else if (doctorId != null) {
+            return prescriptionRepository.findByDoctorsId(doctorId, pageable);
+        } else if (patientName != null) {
+            return prescriptionRepository.findByPatientNameContaining(patientName, pageable);
+        } else {
+            return prescriptionRepository.findAll(pageable);
+        }
     }
 }

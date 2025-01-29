@@ -5,6 +5,10 @@ import com.example.diagnostic_test.entity.Prescription.Prescription;
 import com.example.diagnostic_test.service.PrescriptionService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,7 +30,8 @@ public class PrescriptionController {
     @GetMapping
     public ResponseEntity<List<Prescription>> getAllPrescriptions() {
         List<Prescription> prescriptions = prescriptionService.getAllPrescriptions();
-        return ResponseEntity.ok(prescriptions);}
+        return ResponseEntity.ok(prescriptions);
+    }
 
 
     @GetMapping("/{id}")
@@ -36,7 +41,7 @@ public class PrescriptionController {
     }
 
 
-        @PutMapping("/update/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<Prescription> updatePrescription(@PathVariable Long id,
                                                            @RequestBody PrescriptionRequestDTO request) {
         Prescription updatedPrescription = prescriptionService.updatePrescription(id, request);
@@ -47,5 +52,20 @@ public class PrescriptionController {
     public ResponseEntity<String> deletePrescription(@PathVariable Long id) {
         prescriptionService.deletePrescription(id);
         return ResponseEntity.ok("Prescription deleted successfully");
+    }
+
+
+    @GetMapping("/search")
+    public ResponseEntity<Page<Prescription>> searchPrescriptions(
+            @RequestParam(required = false) Long doctorId,
+            @RequestParam(required = false) String patientName,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "createdAt,desc") String sort) {
+
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sort.split(",")));
+        Page<Prescription> prescriptions = prescriptionService.searchPrescriptions(doctorId, patientName, pageable);
+        return ResponseEntity.ok(prescriptions);
+
     }
 }

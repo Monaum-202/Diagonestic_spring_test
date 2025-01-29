@@ -3,7 +3,11 @@ package com.example.diagnostic_test.controller;
 import com.example.diagnostic_test.entity.Doctors;
 import com.example.diagnostic_test.entity.Medicine.Medicine;
 import com.example.diagnostic_test.repository.medicineRepo.MedicineRepository;
+import com.example.diagnostic_test.service.MedicineService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,6 +19,10 @@ import java.util.Optional;
 public class MedicineController {
     @Autowired
     private MedicineRepository medicineRepository;
+
+
+    @Autowired
+    private MedicineService medicineService;
 
     @GetMapping
     public List<Medicine> getAllMedicines() {
@@ -49,6 +57,22 @@ public class MedicineController {
             return "User deleted successfully.";
         }
         return "User not found.";
+    }
+
+
+    // Search medicines with filters and pagination
+    @GetMapping("/search")
+    public ResponseEntity<Page<Medicine>> searchMedicines(
+            @RequestParam(required = false) String medicineName,
+            @RequestParam(required = false) String form,
+            @RequestParam(required = false) String strength,
+            @RequestParam(required = false) Double price,
+            @RequestParam(required = false) Long categoryId,
+            @RequestParam(required = false) Long companyId,
+            Pageable pageable // Automatically handles pagination parameters
+    ) {
+        Page<Medicine> medicines = medicineService.searchMedicines(medicineName, form, strength, price, categoryId, companyId, pageable);
+        return ResponseEntity.ok(medicines);
     }
 
 }
