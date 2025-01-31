@@ -1,33 +1,18 @@
-package com.example.diagnostic_test.entity.Prescription;
+package com.example.diagnostic_test.dto.prescription;
 
+public class PMedicineDTO {
 
-import com.example.diagnostic_test.entity.Medicine.Medicine;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
-
-@Entity
-public class PrescriptionMedicine {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+    private long id;
     private String medicine;
     private String dosage;
     private String frequency;
-
     private String duration;
 
-    @ManyToOne
-    @JoinColumn(name = "prescription_id", nullable = false)
-    private Prescription prescription;
-
-
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -53,14 +38,6 @@ public class PrescriptionMedicine {
 
     public void setFrequency(String frequency) {
         this.frequency = frequency;
-    }
-
-    public Prescription getPrescription() {
-        return prescription;
-    }
-
-    public void setPrescription(Prescription prescription) {
-        this.prescription = prescription;
     }
 
     public String getDuration() {

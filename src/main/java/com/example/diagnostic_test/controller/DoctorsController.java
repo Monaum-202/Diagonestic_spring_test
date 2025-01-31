@@ -32,19 +32,19 @@ public class DoctorsController {
     @Autowired
     private DoctorAppointmentsRepository doctorAppointmentsRepository;
 
-    @GetMapping("/patients/{doctorId}")
-    public List<DoctorAppointments> getPatientsByDoctor(@PathVariable Long doctorId) {
-        List<DoctorAppointments> patientList = doctorAppointmentsRepository.findAllPatientByDoctorId(doctorId);
-        List<DoctorAppointments> newPatientList = new ArrayList<>();
-
-        for (DoctorAppointments dc: patientList
-        ) {
-            dc.setDepartment(null);
-            newPatientList.add(dc);
-        }
-//        return departmentRepository.getById(departmentId).getDoctors();
-        return newPatientList;
-    }
+//    @GetMapping("/patients/{doctorId}")
+//    public List<DoctorAppointments> getPatientsByDoctor(@PathVariable Long doctorId) {
+//        List<DoctorAppointments> patientList = doctorAppointmentsRepository.findAllPatientByDoctorId(doctorId);
+//        List<DoctorAppointments> newPatientList = new ArrayList<>();
+//
+//        for (DoctorAppointments dc: patientList
+//        ) {
+//            dc.setDepartment(null);
+//            newPatientList.add(dc);
+//        }
+////        return departmentRepository.getById(departmentId).getDoctors();
+//        return newPatientList;
+//    }
 
     @GetMapping
     public List<Doctors> getAllUsers() {

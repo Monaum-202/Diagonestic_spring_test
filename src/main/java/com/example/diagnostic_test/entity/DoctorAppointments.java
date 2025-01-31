@@ -42,6 +42,9 @@ public class DoctorAppointments {
     @JsonIgnore
     private Doctors doctors;
 
+    @Transient
+    private String doctorName;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id", nullable = false)
     @JsonIgnore
@@ -59,8 +62,15 @@ public class DoctorAppointments {
     }
 
 
+    public String getDoctorName() {
+        return doctors.getName();
+    }
 
-        public Long getId() {
+    public void setDoctorName(String doctorName) {
+        this.doctorName = doctorName;
+    }
+
+    public Long getId() {
         return id;
     }
 

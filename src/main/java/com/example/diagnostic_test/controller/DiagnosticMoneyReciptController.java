@@ -1,8 +1,6 @@
 package com.example.diagnostic_test.controller;
 
 import com.example.diagnostic_test.dto.diagnosticReceipt.DiagnosticMoneyReciptDTo;
-import com.example.diagnostic_test.dto.prescription.PrescriptionRequestDTO;
-import com.example.diagnostic_test.entity.Prescription.Prescription;
 import com.example.diagnostic_test.entity.diagonesticEntry.DiagnosticMoneyReceipt;
 import com.example.diagnostic_test.service.DiagnosticMoneyReceiptService;
 import jakarta.validation.Valid;

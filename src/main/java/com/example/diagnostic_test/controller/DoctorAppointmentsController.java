@@ -53,6 +53,22 @@ public class DoctorAppointmentsController {
         return departmentRepository.findAll();
     }
 
+
+    @GetMapping("/patients/{doctorId}")
+    public List<DoctorAppointments> getPatientsByDoctor(@PathVariable Long doctorId) {
+        List<DoctorAppointments> patientList = doctorAppointmentsRepository.findAllPatientByDoctorId(doctorId);
+        List<DoctorAppointments> newPatientList = new ArrayList<>();
+
+        for (DoctorAppointments dc: patientList
+        ) {
+            dc.setDepartment(null);
+            newPatientList.add(dc);
+        }
+//        return departmentRepository.getById(departmentId).getDoctors();
+        return newPatientList;
+    }
+
+
     // Get doctors by department
     @GetMapping("/doctors/by-department/{departmentId}")
     public List<Doctors> getDoctorsByDepartment(@PathVariable Long departmentId) {

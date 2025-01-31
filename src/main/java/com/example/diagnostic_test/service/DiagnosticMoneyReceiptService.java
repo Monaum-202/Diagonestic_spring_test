@@ -1,11 +1,7 @@
 package com.example.diagnostic_test.service;
 
 import com.example.diagnostic_test.dto.diagnosticReceipt.DiagnosticMoneyReciptDTo;
-import com.example.diagnostic_test.dto.prescription.PrescriptionRequestDTO;
 import com.example.diagnostic_test.entity.Doctors;
-import com.example.diagnostic_test.entity.Prescription.Prescription;
-import com.example.diagnostic_test.entity.Prescription.PrescriptionMedicine;
-import com.example.diagnostic_test.entity.Prescription.PrescriptionTests;
 import com.example.diagnostic_test.entity.diagonesticEntry.DiagnoTests;
 import com.example.diagnostic_test.entity.diagonesticEntry.DiagnosticMoneyReceipt;
 import com.example.diagnostic_test.repository.DiagnosticMoneyReceiptRepository;
